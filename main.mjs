@@ -30,8 +30,11 @@ console.log("\nLet's play some poker! Here is everyone's hands: ")
 
 //create deck
 const pokerDealer = new Dealer();
+let anotherRound = true; 
 
-//shuffle deck into random order 
+do{
+    //shuffle deck into random order 
+pokerDealer.resetDeck();
 pokerDealer.shuffleDeck();
 
 //deal random cards to each player 
@@ -50,21 +53,13 @@ players.forEach(p=>
 
 //determine winner 
 let winners = pokerDealer.determineWinner(players)
-if(winners.length>1){
-    for(let i=0; i<winners.length; ++i){
-        if(i===0){
-            console.log("There is a tie between "+winners[i].getName())
-        }
-        if(i===winners.length-1){
-            let winningHand = pokerDealer.determineHandValue(winners[i].getHand())
-            console.log(" and "+winners[i].getName()+", with a hand of "+ pokerDealer.handValueToString(winningHand[0])+ " of "+ winningHand[1])
-        }
-        else{
-            console.log(" and "+winners[i].getName())
-        }
-    }
+pokerDealer.declareWinner(winners)
+
+console.log("Does everyone want to play again?")
+let play = prompt(`Please type yes or no: `)
+if("no".includes(play.toLowerCase().replaceAll(' ',''))){
+    anotherRound=false; 
 }
-else{
-    let winningHand = pokerDealer.determineHandValue(winners[0].getHand())
-    console.log("The winner is "+winners[0].getName()+" with "+ pokerDealer.handValueToString(winningHand[0]) + " of "+winningHand[1])
-}
+} while(anotherRound)
+
+console.log("It was fun playing poker with you! Come again sometime! ")

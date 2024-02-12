@@ -162,6 +162,27 @@ class Dealer{
         return winners 
     }
 
+    declareWinner(winners){
+        if(winners.length>1){
+            for(let i=0; i<winners.length; ++i){
+                if(i===0){
+                    console.log("There is a tie between "+winners[i].getName())
+                }
+                if(i===winners.length-1){
+                    let winningHand = this.determineHandValue(winners[i].getHand())
+                    console.log(" and "+winners[i].getName()+", with a hand of "+ this.handValueToString(winningHand[0])+ " of "+ winningHand[1])
+                }
+                else{
+                    console.log(" and "+winners[i].getName())
+                }
+            }
+        }
+        else{
+            let winningHand = this.determineHandValue(winners[0].getHand())
+            console.log("The winner is "+winners[0].getName()+" with "+ this.handValueToString(winningHand[0]) + " of "+winningHand[1])
+        }
+    }
+
      //gives corresponding string for type of hand 
      handValueToString(handVal){
         let stringValue = "";
